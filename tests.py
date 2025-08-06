@@ -66,4 +66,27 @@ class TestBooksCollector:
 
     # Проверяем добавление в избранное
     def test_add_book_in_favorites_one_book_added_to_favorite(self):
-        collector = BooksCollector
+        collector = BooksCollector()
+        collector.add_new_book('Что делать, если ваш кот хочет вас убить')
+        collector.add_new_book('Сияние')
+        collector.add_book_in_favorites('Сияние')
+        assert 'Сияние' in collector.favorites
+
+    #Проверяем, что книгу можно удалить из избранного
+    def test_delete_book_from_favorites_was_deleted_one_book(self):
+        collector = BooksCollector()
+        collector.add_new_book('Что делать, если ваш кот хочет вас убить')
+        collector.add_new_book('Сияние')
+        collector.add_book_in_favorites('Сияние')
+        collector.delete_book_from_favorites('Сияние')
+        assert len(collector.favorites) == 0
+
+    #Проверяем, что выводится список избранного
+    def test_get_list_of_favorites_books_got_list(self):
+        collector = BooksCollector()
+        collector.add_new_book('Что делать, если ваш кот хочет вас убить')
+        collector.add_new_book('Сияние')
+        collector.add_new_book('Оно')
+        collector.add_book_in_favorites('Сияние')
+        collector.add_book_in_favorites('Оно')
+        assert collector.get_list_of_favorites_books() == ['Сияние', 'Оно']
